@@ -1,0 +1,7 @@
+<%= render Elements::PageHeaderComponent.new(title: t('.title')) %>
+
+<%= render Elements::CardComponent.new(class: 'my-2 shadow-sm') do |card| %>
+  <% card.with_body do %>
+    <%= render Tasks::FormComponent.new(@form) %>
+  <% end %>
+<% end %>

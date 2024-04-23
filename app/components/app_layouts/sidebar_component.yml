@@ -1,0 +1,6 @@
+---
+en:
+  logged_in_as: "Logged in as"
+  links:
+    dashboard: Dashboard
+    tasks: Tasks

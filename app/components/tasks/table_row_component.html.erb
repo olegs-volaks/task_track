@@ -1,0 +1,15 @@
+<tr>
+  <th><%= decorated_task.title %></th>
+  <th><%= truncated_description %></th>
+  <th><%= decorated_task.t_status %></th>
+  <th><%= decorated_task.created_by_full_name %></th>
+  <th><%= decorated_task.assigned_to_full_name %></th>
+  <th><%= decorated_task.l_deadline %></th>
+  <th>
+    <div class="btn-group">
+      <%= link_to fa_solid(icon: :info), task_path(@task), class: 'btn btn-primary btn-sm' %>
+      <%= link_to fa_solid(icon: 'pen-to-square'), edit_task_path(@task), class: 'btn btn-warning btn-sm' %>
+      <%= link_to fa_solid(icon: :trash), task_path(@task), data: { turbo_method: :delete, turbo_confirm: t('shared.are_you_sure') }, class: 'btn btn-danger btn-sm' %>
+    </div>
+  </th>
+</tr>

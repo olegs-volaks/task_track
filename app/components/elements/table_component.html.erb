@@ -1,0 +1,20 @@
+<table class="<%= table_class %>">
+  <thead>
+  <tr>
+    <% headers.each do |header| %>
+      <%= header %>
+    <% end %>
+  </tr>
+  </thead>
+  <tbody>
+    <% if rows? %>
+      <% rows.each do |row| %>
+        <%= row %>
+      <% end %>
+    <% else %>
+    <tr>
+      <td colspan="<%= headers.size %>"><%= t('.no_records') %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

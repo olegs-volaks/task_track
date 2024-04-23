@@ -1,0 +1,5 @@
+<%= render Elements::PageHeaderComponent.new(title: t('.title')) %>
+
+<%= render Tasks::SearchComponent.new(search: @search, current_user: current_user) %>
+
+<%= render Tasks::ListComponent.new(tasks: @tasks, search: @search, pagy: @pagy) %>

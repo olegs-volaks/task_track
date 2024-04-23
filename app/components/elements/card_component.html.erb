@@ -1,0 +1,17 @@
+<div class="<%= card_class %>>">
+  <% if header? %>
+    <div class="card-header">
+      <%= header %>
+    </div>
+  <% end %>
+  <% if body? %>
+    <div class="card-body">
+      <%= body %>
+    </div>
+  <% end %>
+  <% if footer? %>
+    <div class="card-footer">
+      <%= footer %>
+    </div>
+  <% end %>
+</div>

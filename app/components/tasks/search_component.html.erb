@@ -1,0 +1,31 @@
+<%= render Elements::CardComponent.new(class: 'my-2 shadow-sm') do |card| %>
+  <% card.with_header { t('.search_header') } %>
+  <% card.with_body do %>
+    <%= simple_form_for @search, url: tasks_path, method: :get, as: :search do |f| %>
+      <div class="row">
+        <div class="col-sm-6">
+          <%= f.input :title_cont, label: t_task_title, required: false %>
+        </div>
+        <div class="col-sm-6">
+          <%= f.input :description_cont, label: t_task_description, required: false %>
+        </div>
+        <div class="col-sm-6">
+          <%= f.input :status_in, collection: statuses_collection, label: t_task_status, required: false, multiple: true %>
+        </div>
+        <div class="col-sm-6">
+          <%= f.input :assigned_to_id_eq, label: t_task_assigned_to, required: false, collection: users_collection %>
+        </div>
+        <div class="col-sm-6">
+          <%= f.input :deadline_gteq, label: t_task_deadline_from, required: false, input_html: { data: { controller: "flatpickr" } } %>
+        </div>
+        <div class="col-sm-6">
+          <%= f.input :deadline_lteq, label: t_task_deadline_to, required: false, input_html: { data: { controller: "flatpickr" } } %>
+        </div>
+      </div>
+      <div class="float-end">
+        <%= link_to t('.clear'), tasks_path, class: 'btn btn-secondary' %>
+        <%= f.submit t('.search'), class: 'btn btn-primary' %>
+      </div>
+    <% end %>
+  <% end %>
+<% end %>

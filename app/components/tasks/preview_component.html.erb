@@ -1,0 +1,21 @@
+<%= render Elements::CardComponent.new(class: 'my-2 shadow-sm') do |card| %>
+  <% card.with_body do %>
+    <%= render Elements::DescriptionListComponent.new do |description_list| %>
+      <% description_list.with_row(title: t_task_title, description: decorated_task.title) %>
+      <% description_list.with_row(title: t_task_status, description: decorated_task.t_status) %>
+      <% description_list.with_row(title: t_task_created_by, description: decorated_task.created_by_full_name) %>
+      <% description_list.with_row(title: t_task_assigned_to, description: decorated_task.assigned_to_full_name) %>
+      <% description_list.with_row(title: t_task_deadline, description: decorated_task.l_deadline) %>
+    <% end %>
+  <% end %>
+
+  <% card.with_footer do %>
+    <div class="btn-group float-end">
+      <%= link_to fa_solid(icon: :backward), tasks_path, class: 'btn btn-secondary' %>
+      <%= link_to fa_solid(icon: 'pen-to-square'), edit_task_path(@task), class: 'btn btn-warning' %>
+      <%= link_to fa_solid(icon: :trash), task_path(@task), data: { turbo_method: :delete, turbo_confirm: t('shared.are_you_sure') }, class: 'btn btn-danger' %>
+    </div>
+  <% end %>
+
+
+<% end %>

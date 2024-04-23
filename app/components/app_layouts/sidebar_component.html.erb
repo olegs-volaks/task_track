@@ -1,0 +1,15 @@
+<div id="layoutSidenav_nav">
+  <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+    <div class="sb-sidenav-menu">
+      <div class="nav">
+        <% nav_links.each do |nav_link| %>
+        <%= render nav_link %>
+        <% end %>
+      </div>
+    </div>
+    <div class="sb-sidenav-footer">
+      <div class="small"><%= t('.logged_in_as') %></div>
+      <%= user_full_name %>
+    </div>
+  </nav>
+</div>

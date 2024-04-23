@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>TaskTrack</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+
+  <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+  <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
+</head>
+
+<body class="sb-nav-fixed">
+<%= render AppLayouts::NotificationsComponent.new do |component| %>
+  <% component.with_flash_toasts flash.map { |type, text| { type:, text: } } %>
+<% end %>
+
+<%= render AppLayouts::NavbarComponent.new(current_user: current_user) %>
+
+<%= render AppLayouts::LayoutSidenavComponent.new(current_user: current_user) do |component| %>
+  <% component.with_sidebar(current_user: current_user, current_path: request.fullpath) %>
+
+  <% yield %>
+<% end %>
+
+</body>
+</html>

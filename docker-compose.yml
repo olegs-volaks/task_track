@@ -1,0 +1,61 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: docker/dev.Dockerfile
+    depends_on:
+      - db
+      - js
+      - css
+    ports:
+      - '3000:3000'
+    volumes:
+      - .:/app
+    links:
+      - db
+    environment:
+      RAILS_ENV: development
+      RAILS_MAX_THREADS: 5
+      RAILS_DATABASE_NAME: task_track
+      RAILS_TEST_DATABASE_NAME: task_track_test
+      RAILS_DATABASE_USERNAME: task_track
+      RAILS_DATABASE_PASSWORD: task_track
+  db:
+    image: postgres:latest
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./docker/init_db/sql_dump.sql:/dump/sql_dump.sql
+      - ./docker/init_db/init_db.sh:/docker-entrypoint-initdb.d/init_db.sh
+    environment:
+      POSTGRES_DB: task_track
+      POSTGRES_USER: task_track
+      POSTGRES_PASSWORD: task_track
+      RAILS_TEST_DATABASE: task_track_test
+  js:
+    command: yarn build --watch=forever
+    build:
+      context: .
+      dockerfile: docker/assets.Dockerfile
+    volumes:
+      - ./app/javascript:/node/app/javascript
+      - ./app/assets:/node/app/assets
+      - node_modules:/node/node_modules
+      - ./package.json:/node/package.json
+      - ./yarn.lock:/node/yarn.lock
+  css:
+    build:
+      context: .
+      dockerfile: docker/assets.Dockerfile
+    command: yarn legacy_watch:css
+    volumes:
+      - ./app/assets:/node/app/assets
+      - node_modules:/node/node_modules
+      - ./package.json:/node/package.json
+      - ./yarn.lock:/node/yarn.lock
+volumes:
+  postgres_data:
+  node_modules:

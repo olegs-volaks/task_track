@@ -1,0 +1,10 @@
+en:
+  tasks:
+    create:
+      success: "Task successfully created!"
+      error: "Failed to save task!"
+    update:
+      success: "Task successfully updated!"
+      error: "Failed to save task!"
+    destroy:
+      success: "Task deleted successfully!"

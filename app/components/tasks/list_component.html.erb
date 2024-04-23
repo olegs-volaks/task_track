@@ -1,0 +1,18 @@
+<%= link_to fa_solid(icon: :plus), new_task_path, class: 'btn btn-success float-end my-2' %>
+
+<%= render Elements::TableComponent.new(class: 'my-2 table-striped table-hover shadow-sm') do |table| %>
+  <% table.with_header { sort_link(@search, :title, t_task_title) } %>
+  <% table.with_header { sort_link(@search, :description, t_task_description) } %>
+  <% table.with_header { sort_link(@search, :status, t_task_status) } %>
+  <% table.with_header { sort_link(@search, :created_by_full_name, t_task_created_by) } %>
+  <% table.with_header { sort_link(@search, :assigned_to_full_name, t_task_assigned_to) } %>
+  <% table.with_header { sort_link(@search, :deadline, t_task_deadline) } %>
+  <% table.with_header(width: '100px') { '' } %>
+
+  <% @tasks.each do |task| %>
+    <% table.with_row { render(Tasks::TableRowComponent.new(task: task)) } %>
+  <% end %>
+
+<% end %>
+
+<%= render Elements::PaginationComponent.new(pagy: @pagy) %>

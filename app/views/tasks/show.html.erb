@@ -1,0 +1,5 @@
+<%= render Elements::PageHeaderComponent.new(title: t('.title')) %>
+
+<%= render Tasks::PreviewComponent.new(task: @task) %>
+
+<%= render Tasks::PreviewDescriptionComponent.new(task: @task) %>

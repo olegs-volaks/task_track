@@ -1,0 +1,12 @@
+en:
+  activerecord:
+    enums:
+      task:
+        status:
+          draft: Draft
+          pending: Pending
+          in_progress: In progress
+          completed: Completed
+    attributes:
+      task:
+        status: Status
