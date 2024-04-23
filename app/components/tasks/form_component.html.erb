@@ -2,8 +2,8 @@
   <%= f.error_notification %>
   <%= f.input :title %>
   <%= f.input :description, as: :text %>
-  <%= f.input :status, collection: @form.statuses_collection %>
-  <%= f.association :assigned_to, collection: @form.users_collection  %>
+  <%= f.input :status, collection: @form.statuses_collection, required: true %>
+  <%= f.association :assigned_to, collection: @form.users_collection, required: true %>
   <%= f.input :deadline, as: :string, input_html: { data: { controller: "flatpickr" } } %>
   <%= f.submit class: 'btn btn-success' %>
   <%= link_to t('.cancel'), tasks_path, class: 'btn btn-secondary' %>

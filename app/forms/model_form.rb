@@ -1,12 +1,13 @@
 # frozen_string_literal: true
 
-class ModelForm
+class ModelForm < ApplicationForm
   include ActiveModel::Model
   include ActiveModel::Validations
   include DecorateHelper
 
   attr_reader :object
 
+  # Need for simple form
   delegate :persisted?, :model_name, :id, to: :object
 
   class << self
@@ -20,16 +21,19 @@ class ModelForm
       end
     end
 
+    # Need for simple form 'required: true' detection
     def validators_on(*attributes)
       super(*attributes) + object_class.validators_on(*attributes)
     end
 
+    # Need for simple form 'f.association'
     def reflect_on_association(association)
       if object_class.respond_to?(:reflect_on_association)
         object_class.reflect_on_association(association)
       end
     end
 
+    # Need to  attributes humanize with using object localization
     def human_attribute_name(attribute, options = {})
       if virtual_fields.include?(attribute.to_sym)
         human_attribute_name(attribute, options)
@@ -41,9 +45,9 @@ class ModelForm
     protected
 
     def object_class_name(class_name)
-      object_class = class_name.is_a?(Class) ? class_name : class_name.constantize
+      class_name = class_name.constantize unless class_name.is_a?(Class)
 
-      const_set(:OBJECT_CLASS, object_class)
+      const_set(:OBJECT_CLASS, class_name)
     end
 
     def delegated_field(*attr_name)
@@ -51,7 +55,7 @@ class ModelForm
         delegated_fields << attr.to_sym
 
         delegate attr, to: :object
-        delegate "#{attr}=", :to => :object
+        delegate "#{attr}=", to: :object
       end
     end
 
@@ -62,6 +66,8 @@ class ModelForm
         attr_accessor attr
       end
     end
+
+    private
 
     def delegated_fields
       @delegated_fields ||= []

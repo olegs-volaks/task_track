@@ -33,7 +33,7 @@ module Tasks
 
     def assign_default_attributes(current_user:)
       self.assigned_to_id = current_user.id
-      self.created_by_id = current_user.id
+      self.created_by_id = current_user.id unless self.persisted?
     end
   end
 end

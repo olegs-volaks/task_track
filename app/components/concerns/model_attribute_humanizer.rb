@@ -15,20 +15,27 @@ module ModelAttributeHumanizer
                  prefix.to_s.downcase
                end
 
-      Task.attribute_names[1..].each do |attr_name|
-        attr_name = attr_name.delete_suffix('_id')
+      attributes_names = model_class.attribute_names.grep_v(/\A(id|.*_id)\Z/)
 
+      # Add model associations names to attributes_names collection
+      attributes_names.concat(
+        model_class.reflect_on_all_associations.map { |reflection| reflection.name.to_s }
+      )
+
+      attributes_names.each do |attr_name|
         method_name = ['t', prefix, attr_name].compact.join('_')
+
         define_method(method_name) do
-          Task.human_attribute_name(attr_name.to_sym)
+          model_class.human_attribute_name(attr_name.to_sym)
         end
 
         private(method_name.to_sym) if private_methods
       end
 
       method_name = [prefix, 'human_attribute_name'].compact.join('_')
+
       define_method(method_name) do |attr_name|
-        Task.human_attribute_name(attr_name)
+        model_class.human_attribute_name(attr_name)
       end
 
       private(method_name.to_sym) if private_methods

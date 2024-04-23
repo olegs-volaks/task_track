@@ -9,7 +9,9 @@ module Tasks
     def call
       assigned_users_ids = Task.user_accessible(@user.id).
         distinct.
-        pluck(:assigned_to_id)
+        pluck(:assigned_to_id).
+        push(@user.id).
+        uniq
 
       User.where(id: assigned_users_ids)
     end
