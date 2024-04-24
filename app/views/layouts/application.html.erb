@@ -17,7 +17,7 @@
 
 <%= render AppLayouts::NavbarComponent.new(current_user: current_user) %>
 
-<%= render AppLayouts::LayoutSidenavComponent.new(current_user: current_user) do |component| %>
+<%= render AppLayouts::LayoutSidenavComponent.new do |component| %>
   <% component.with_sidebar(current_user: current_user, current_path: request.fullpath) %>
 
   <% yield %>

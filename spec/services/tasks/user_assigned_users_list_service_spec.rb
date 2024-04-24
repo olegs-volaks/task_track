@@ -26,9 +26,9 @@ RSpec.describe Tasks::UserAssignedUsersListService do
 
       create_list(:task, 3)
 
-      result = described_class.new(current_user)
+      result = described_class.new(current_user).call
 
-      expect(result.call).to contain_exactly current_user, user1, user2
+      expect(result).to contain_exactly current_user, user1, user2
     end
   end
 end
