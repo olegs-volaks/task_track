@@ -11,7 +11,7 @@ COPY Gemfile Gemfile.lock ./
 
 RUN bundle check || bundle install
 
-RUN mkdir -p app/javascript
+RUN mkdir -p docker
 
 COPY ./docker/docker-entrypoint.sh ./docker/docker-entrypoint.sh
 
