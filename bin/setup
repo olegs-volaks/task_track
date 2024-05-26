@@ -2,9 +2,18 @@
 
 set -euo pipefail
 
+# Setup environment variables
+cat << EOF > .env
+# Application system settings
+RAILS_DATABASE_NAME=task_track
+RAILS_TEST_DATABASE_NAME=task_track_test
+RAILS_DATABASE_USERNAME=task_track
+RAILS_DATABASE_PASSWORD=task_track
+EOF
+
 # Remove all Docker Compose containers and volumes
 docker compose down -v
-#
+
 # Build all Docker Compose services
 docker compose build
 #

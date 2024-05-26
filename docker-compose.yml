@@ -16,10 +16,10 @@ services:
     environment:
       RAILS_ENV: development
       RAILS_MAX_THREADS: 5
-      RAILS_DATABASE_NAME: task_track
-      RAILS_TEST_DATABASE_NAME: task_track_test
-      RAILS_DATABASE_USERNAME: task_track
-      RAILS_DATABASE_PASSWORD: task_track
+      RAILS_DATABASE_NAME: ${RAILS_DATABASE_NAME:?"Run 'bin/setup' to setup the application"}
+      RAILS_TEST_DATABASE_NAME: ${RAILS_TEST_DATABASE_NAME:?"Run 'bin/setup' to setup the application"}
+      RAILS_DATABASE_USERNAME: ${RAILS_DATABASE_USERNAME:?"Run 'bin/setup' to setup the application"}
+      RAILS_DATABASE_PASSWORD: ${RAILS_DATABASE_PASSWORD:?"Run 'bin/setup' to setup the application"}
   db:
     image: postgres:latest
     ports:
@@ -29,10 +29,10 @@ services:
       - ./docker/init_db/sql_dump.sql:/dump/sql_dump.sql
       - ./docker/init_db/init_db.sh:/docker-entrypoint-initdb.d/init_db.sh
     environment:
-      POSTGRES_DB: task_track
-      POSTGRES_USER: task_track
-      POSTGRES_PASSWORD: task_track
-      RAILS_TEST_DATABASE: task_track_test
+      POSTGRES_DB: ${RAILS_DATABASE_NAME:?"Run 'bin/setup' to setup the application"}
+      POSTGRES_USER: ${RAILS_DATABASE_USERNAME:?"Run 'bin/setup' to setup the application"}
+      POSTGRES_PASSWORD: ${RAILS_DATABASE_PASSWORD:?"Run 'bin/setup' to setup the application"}
+      RAILS_TEST_DATABASE: ${RAILS_TEST_DATABASE_NAME:?"Run 'bin/setup' to setup the application"}
   js:
     command: yarn build --watch=forever
     build:
