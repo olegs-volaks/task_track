@@ -1,0 +1,20 @@
+#!/bin/bash
+
+set -euo pipefail
+
+service_name="db"
+dump_file="./docker/sql_dump.sql"
+service_was_running=true
+
+if [ -z "$(docker compose ps -q "$service_name")" ]; then
+  service_was_running=false
+  docker compose up -d "$service_name"
+fi
+
+docker compose exec -T "$service_name" sh -c 'pg_dump -U "$POSTGRES_USER" -c --if-exists "$POSTGRES_DB"' > "$dump_file"
+
+echo "Database dump created at $dump_file."
+
+if [ "$service_was_running" = false ]; then
+  docker compose down "$service_name"
+fi

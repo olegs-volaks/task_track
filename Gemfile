@@ -1,9 +1,9 @@
 source "https://rubygems.org"
 
-ruby "3.3.0"
+ruby "3.3.1"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 7.1.3", ">= 7.1.3.2"
+gem "rails", "~> 7.1.3", ">= 7.1.3.3"
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
@@ -51,7 +51,7 @@ gem 'simple_form', '~> 5.3'
 gem "devise", "~> 4.9"
 gem 'ransack', '~> 4.1'
 gem 'view_component', '~> 3.12.1'
-gem 'pagy', '~> 8.2.0'
+gem 'pagy', '~> 8.4.0'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
