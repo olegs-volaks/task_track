@@ -4,6 +4,10 @@ set -euo pipefail
 
 # Setup environment variables
 cat << EOF > .env
+# Docker user
+UID=$(id -u)
+GID=$(id -g)
+
 # Application system settings
 RAILS_DATABASE_NAME=task_track
 RAILS_TEST_DATABASE_NAME=task_track_test
@@ -16,7 +20,8 @@ docker compose down -v
 
 # Build all Docker Compose services
 docker compose build
-#
+
+docker compose run --rm app yarn install
 
 docker compose run --rm app rails db:migrate db:seed
 docker compose run --rm app rails db:test:prepare

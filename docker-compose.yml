@@ -1,6 +1,13 @@
+x-args: &args
+  args:
+    UID: ${UID:?"Run 'bin/setup' to setup the application"}
+    GID: ${GID:?"Run 'bin/setup' to setup the application"}
+
 services:
   app:
+    tty: true
     build:
+      <<: *args
       context: .
       dockerfile: docker/dev.Dockerfile
     depends_on:
@@ -11,6 +18,7 @@ services:
       - '3000:3000'
     volumes:
       - .:/app
+      - node_modules:/app/node_modules
     links:
       - db
     environment:
@@ -36,24 +44,21 @@ services:
   js:
     command: yarn build --watch=forever
     build:
+      <<: *args
       context: .
       dockerfile: docker/assets.Dockerfile
     volumes:
-      - ./app/javascript:/node/app/javascript
-      - ./app/assets:/node/app/assets
+      - .:/node
       - node_modules:/node/node_modules
-      - ./package.json:/node/package.json
-      - ./yarn.lock:/node/yarn.lock
   css:
     build:
+      <<: *args
       context: .
       dockerfile: docker/assets.Dockerfile
     command: yarn legacy_watch:css
     volumes:
-      - ./app/assets:/node/app/assets
+      - .:/node
       - node_modules:/node/node_modules
-      - ./package.json:/node/package.json
-      - ./yarn.lock:/node/yarn.lock
 volumes:
   postgres_data:
   node_modules:
