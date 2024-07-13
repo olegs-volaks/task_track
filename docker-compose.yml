@@ -42,7 +42,7 @@ services:
       POSTGRES_PASSWORD: ${RAILS_DATABASE_PASSWORD:?"Run 'bin/setup' to setup the application"}
       RAILS_TEST_DATABASE: ${RAILS_TEST_DATABASE_NAME:?"Run 'bin/setup' to setup the application"}
   js:
-    command: yarn build --watch=forever
+    command: yarn build --watch
     build:
       <<: *args
       context: .
@@ -50,15 +50,19 @@ services:
     volumes:
       - .:/node
       - node_modules:/node/node_modules
+    environment:
+      - NODE_ENV=development
   css:
     build:
       <<: *args
       context: .
       dockerfile: docker/assets.Dockerfile
-    command: yarn legacy_watch:css
+    command: yarn watch:css --legacy-watch
     volumes:
       - .:/node
       - node_modules:/node/node_modules
+    environment:
+      - NODE_ENV=development
 volumes:
   postgres_data:
   node_modules:
