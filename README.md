@@ -2,13 +2,13 @@
 
 ## Main technologies used
 
-- Ruby 3.3.1
+- Ruby 3.3.4
 - Ruby on Rails 7.1.3
 - PostgreSQL database
 - Hotwire Turbo
 - Hotwire stimulus
 - jsbundling-rails with esbuild
-- cssbundling-rails with Bootstrap
+- cssbundling-rails with Dart Sass (Bootstrap)
 - Devise - for authorization
 - Ransack - for searching
 - View Component - as a replacement for the presenter pattern
