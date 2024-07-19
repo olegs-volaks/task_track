@@ -39,7 +39,7 @@ class TasksController < ApplicationController
       redirect_to task_path(task), status: :see_other, flash: { success: t('.success') }
     else
       flash.now[:error] = t('.error')
-      render :new, status: :unprocessable_entity
+      render :new, status: :unprocessable_content
     end
   end
 
@@ -58,10 +58,11 @@ class TasksController < ApplicationController
   def task_params
     params.require(:task).permit(
       :title,
-      :description,
+      :short_description,
       :status,
       :assigned_to_id,
-      :deadline
+      :deadline,
+      :detail_description
     )
   end
 
@@ -69,7 +70,7 @@ class TasksController < ApplicationController
     params.
       fetch(:search, {}).permit(
       :title_cont,
-      :description_cont,
+      :short_description_cont,
       :assigned_to_id_eq,
       :deadline_gteq,
       :deadline_lteq,

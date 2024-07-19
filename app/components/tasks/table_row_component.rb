@@ -14,8 +14,8 @@ module Tasks
       @decorated_task ||= decorate(@task)
     end
 
-    def truncated_description
-      truncate(decorated_task.description, length: 50)
+    def truncated_short_description
+      truncate(decorated_task.short_description, length: 50)
     end
   end
 end

@@ -5,11 +5,12 @@ module Tasks
     object_class_name Task
 
     delegated_field :title,
-                    :description,
+                    :short_description,
                     :status,
                     :created_by_id,
                     :assigned_to_id,
-                    :deadline
+                    :deadline,
+                    :detail_description
 
     def initialize(object, current_user:)
       super(object, current_user: current_user)

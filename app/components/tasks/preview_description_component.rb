@@ -3,6 +3,7 @@
 module Tasks
   class PreviewDescriptionComponent < ApplicationComponent
     include ModelAttributeHumanizer
+
     define_humanize_methods_for Task
 
     def initialize(task:)

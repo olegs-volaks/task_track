@@ -19,7 +19,11 @@ module ModelAttributeHumanizer
 
       # Add model associations names to attributes_names collection
       attributes_names.concat(
-        model_class.reflect_on_all_associations.map { |reflection| reflection.name.to_s }
+        model_class.reflect_on_all_associations.map do |reflection|
+          ref_name = reflection.name.to_s
+
+          (reflection.options&.dig(:class_name) == 'ActionText::RichText') ? ref_name.delete_prefix('rich_text_') : ref_name
+        end
       )
 
       attributes_names.each do |attr_name|

@@ -2,7 +2,7 @@
 
 <%= render Elements::TableComponent.new(class: 'my-2 table-striped table-hover shadow-sm') do |table| %>
   <% table.with_header { sort_link(@search, :title, t_task_title) } %>
-  <% table.with_header { sort_link(@search, :description, t_task_description) } %>
+  <% table.with_header { sort_link(@search, :short_description, t_task_short_description) } %>
   <% table.with_header { sort_link(@search, :status, t_task_status) } %>
   <% table.with_header { sort_link(@search, :created_by_full_name, t_task_created_by) } %>
   <% table.with_header { sort_link(@search, :assigned_to_full_name, t_task_assigned_to) } %>

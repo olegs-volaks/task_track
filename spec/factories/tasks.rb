@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :task do
     sequence(:title) { |n| "Task #{n}" }
-    sequence(:description) { |n| "Task description #{n}" }
+    sequence(:short_description) { |n| "Task description #{n}" }
     deadline { DateTime.current.next_day }
 
     association :created_by, factory: :user

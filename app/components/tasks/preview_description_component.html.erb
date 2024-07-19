@@ -1,4 +1,9 @@
 <%= render Elements::CardComponent.new(class: 'mt-4 shadow-sm') do |card| %>
-  <% card.with_header { t_task_description } %>
-  <% card.with_body { simple_format(@task.description) } %>
+  <% card.with_header { t_task_short_description } %>
+  <% card.with_body { @task.short_description.to_s } %>
+<% end %>
+
+<%= render Elements::CardComponent.new(class: 'mt-4 shadow-sm') do |card| %>
+  <% card.with_header { t_task_detail_description } %>
+  <% card.with_body { @task.detail_description.to_s } %>
 <% end %>

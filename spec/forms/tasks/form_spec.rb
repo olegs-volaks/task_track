@@ -14,7 +14,7 @@ RSpec.describe Tasks::Form do
 
         attributes = {
           title: 'title 1',
-          description: 'description 1',
+          short_description: 'description 1',
           status: 'draft',
           assigned_to_id: user.id,
           deadline: DateTime.current.next_week
@@ -27,7 +27,7 @@ RSpec.describe Tasks::Form do
 
         expect(Task.last).to have_attributes(
                                title: 'title 1',
-                               description: 'description 1',
+                               short_description: 'description 1',
                                status: 'draft',
                                assigned_to_id: user.id,
                                created_by_id: user.id,
@@ -69,7 +69,7 @@ RSpec.describe Tasks::Form do
           :task,
           :draft,
           title: 'title 1',
-          description: 'description 1',
+          short_description: 'description 1',
           status: 'draft',
           assigned_to: user_creator,
           created_by: user_creator,
@@ -82,7 +82,7 @@ RSpec.describe Tasks::Form do
 
         attributes = {
           title: 'title updated',
-          description: 'description updated',
+          short_description: 'description updated',
           status: 'pending',
           assigned_to_id: current_user.id,
           deadline: DateTime.current.next_week
@@ -96,7 +96,7 @@ RSpec.describe Tasks::Form do
 
         expect(task).to have_attributes(
                                title: 'title updated',
-                               description: 'description updated',
+                               short_description: 'description updated',
                                status: 'pending',
                                assigned_to_id: current_user.id,
                                created_by_id: user_creator.id,
@@ -113,7 +113,7 @@ RSpec.describe Tasks::Form do
           :task,
           :draft,
           title: 'title 1',
-          description: 'description 1',
+          short_description: 'description 1',
           status: 'draft',
           assigned_to: user_creator,
           created_by: user_creator,
@@ -126,7 +126,7 @@ RSpec.describe Tasks::Form do
 
         attributes = {
           title: '',
-          description: '',
+          short_description: '',
           status: 'pending',
           assigned_to_id: current_user.id,
           deadline: DateTime.current.next_week
@@ -140,7 +140,7 @@ RSpec.describe Tasks::Form do
 
         expect(Task.last).to have_attributes(
                                title: 'title 1',
-                               description: 'description 1',
+                               short_description: 'description 1',
                                status: 'draft',
                                assigned_to_id: user_creator.id,
                                created_by_id: user_creator.id,
