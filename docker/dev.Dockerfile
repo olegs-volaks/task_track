@@ -28,23 +28,22 @@ RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | b
     && npm install --global yarn
 
 RUN mkdir -p /app \
-    && chown -R rails:rails /app
-
-USER rails
+    && mkdir -p /app/docker
 
 WORKDIR /app
 
-RUN gem install bundler
-
+COPY ./docker/docker-entrypoint.sh /app/docker/docker-entrypoint.sh
 COPY Gemfile Gemfile.lock ./
+
+RUN chown -R rails:rails /app
+
+USER rails
+
+RUN gem install bundler
 
 RUN bundle check || bundle install
 
-RUN mkdir -p docker
-
-COPY ./docker/docker-entrypoint.sh ./docker/docker-entrypoint.sh
-
-ENTRYPOINT ["./docker/docker-entrypoint.sh"]
+ENTRYPOINT ["/app/docker/docker-entrypoint.sh"]
 
 RUN mkdir -p node_modules
 
